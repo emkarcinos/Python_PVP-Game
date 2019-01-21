@@ -22,6 +22,8 @@ clock=pygame.time.Clock()
 
 events.players.append(Player('asd', 400, 100, 10))
 events.players.append(Player('qwe', 400, 500, 10))
+events.p1_group.add(events.players[0])
+events.p2_group.add(events.players[1])
 all_sprites.add(events.players)
 
 events.running=True
@@ -31,7 +33,6 @@ events.running=True
 font=pygame.font.SysFont("Arial", 12)
 
 def draw_debug_text():
-    text_sprites=pygame.sprite.Group()
     texts=[
             font.render("P1 facing: " + str(events.players[0].facing), True, (100,100,100)),
             font.render("P2 facing: " + str(events.players[1].facing), True, (100,100,100)),
@@ -44,6 +45,9 @@ def draw_debug_text():
         count+=1
 
 # set hitbox objects as screen boundaries ### DEBUG ###
+boundary=pygame.sprite.Group()
+boundary.add=Hitbox(int(WINDOW_WIDTH/2), 0, WINDOW_WIDTH, 10)
+
 # game loop
 
 while events.running:

@@ -7,6 +7,8 @@ from config import *
 running=True
 players=[]
 
+p1_group=pygame.sprite.Group()
+p2_group=pygame.sprite.Group()
 p1_bullet=[]
 p2_bullet=[]
 
@@ -40,6 +42,8 @@ def collision_check(p):
 
     else:
         return False
+def bullethits():
+    hits=pygame.sprite.groupcollide(p2_group, p1_bullet_group, True, True)
 
 def player1_input(keys):
     if keys[P1_SHOOT]:
@@ -83,6 +87,7 @@ def event_handler():
     events()
     keys=pygame.key.get_pressed()
     collision_check(-1)
+    bullethits()
     player1_input(keys)
     player2_input(keys) 
     

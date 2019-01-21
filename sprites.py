@@ -114,9 +114,12 @@ class Bullet(pygame.sprite.Sprite):
 
     def update(self):
         self.shoot()
+        if self.rect.bottom<0 or self.rect.right<0 or self.rect.left>WINDOW_WIDTH or self.rect.top>WINDOW_HEIGHT:
+            self.kill()
 
 class Hitbox(pygame.sprite.Sprite):
     def __init__(self, x, y, w, h):
-        self.size=vec(w, h)
+        self.size=pygame.Surface((x,y))
         self.rect=self.size.get_rect()
         self.rect.center=vec(x,y)
+        print(self.rect.center)
