@@ -26,6 +26,21 @@ all_sprites.add(events.players)
 
 events.running=True
 
+# debug text
+
+font=pygame.font.SysFont("Arial", 12)
+
+def draw_debug_text():
+    text_sprites=pygame.sprite.Group()
+    texts=[
+            font.render("P1 facing: " + str(events.players[0].facing), True, (100,100,100)),
+            font.render("P2 facing: " + str(events.players[1].facing), True, (100,100,100))
+        ]
+    count=0
+    for text in texts:
+        screen.blit(text, (0,count*12))
+        count+=1
+
 # game loop
 
 while events.running:
@@ -37,6 +52,7 @@ while events.running:
     all_sprites.update()
     screen.fill(BLACK)
     # draw
+    draw_debug_text()
     all_sprites.draw(screen)
     pygame.display.flip()
 pygame.quit() 

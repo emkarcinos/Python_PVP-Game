@@ -16,7 +16,7 @@ def load_img(name):
     return image, image.get_rect()
 
 def load_sound(name):
-    sound_path=os.path.join('data\\sounds')
+    sound_path=os.path.join('data/sounds')
     sound=pygame.mixer.Sound(sound_path)
     return sound
 
@@ -39,7 +39,6 @@ class Player(pygame.sprite.Sprite):
         self.friction=-0.25
         self.facing=0     # where the player is looking (0-north, 1-east, 2-south, 3-west)
         self.colliding=False
-
     def moveup(self):
         if self.facing!=0:
             self.image=pygame.transform.rotate(self.image, (self.facing*90))
@@ -49,25 +48,28 @@ class Player(pygame.sprite.Sprite):
 
     def movedown(self):
         if self.facing!=2:
-            self.image=pygame.transform.rotate(self.image, (self.facing*90))
+            self.image=pygame.transform.rotate(self.image, (self.facing*90)-180)
         self.facing=2
         self.acc.y=1.5
         self.acc.x=0
 
     def moveright(self):
         if self.facing!=1:
-            self.image=pygame.transform.rotate(self.image, (self.facing*90))
+            self.image=pygame.transform.rotate(self.image, (self.facing*90)-90)
         self.facing=1
         self.acc.x=1.5
         self.acc.y=0
 
     def moveleft(self):
         if self.facing!=3:
-            self.image=pygame.transform.rotate(self.image, (self.facing*90))
+            self.image=pygame.transform.rotate(self.image, (self.facing*90)-270)
         self.facing=3
         self.acc.x=-1.5
         self.acc.y=0
     
+    def shoot(self):
+        nothing
+
     def stopmoving(self):
         self.acc=vec(0, 0)
 

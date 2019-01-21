@@ -19,11 +19,13 @@ def collision_check(p):
         if p==1:
             players[0].colliding=True
             direction=players[1].facing
+            players[0].image=pygame.transform.rotate(players[0].image, players[0].facing*90-((direction+2)%4)*90)
             players[0].facing=(direction+2)%4
             return True
         elif p==0:
             players[1].colliding=True
             direction=players[0].facing
+            players[1].image=pygame.transform.rotate(players[1].image, players[1].facing*90-((direction+2)%4)*90)
             players[1].facing=(direction+2)%4
             return True
         else:
