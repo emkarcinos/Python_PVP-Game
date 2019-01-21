@@ -43,7 +43,12 @@ def collision_check(p):
     else:
         return False
 def bullethits():
-    hits=pygame.sprite.groupcollide(p2_group, p1_bullet_group, True, True)
+    hits1=pygame.sprite.groupcollide(p2_group, p1_bullet_group, True, True)
+    hits2=pygame.sprite.groupcollide(p1_group, p2_bullet_group, True, True)
+    if hits1:
+        print("Player 1 killed Player 2")
+    if hits2:
+        print("Player 2 killed Player 1")
 
 def player1_input(keys):
     if keys[P1_SHOOT]:
@@ -67,7 +72,7 @@ def player1_input(keys):
 def player2_input(keys):
     if keys[P2_SHOOT]:
             p2_bullet.append(Bullet('bullet', players[1].pos.x, players[1].pos.y, players[1].facing))
-            p2_bullet_group.add(p1_bullet[-1])
+            p2_bullet_group.add(p2_bullet[-1])
             all_sprites.add(p2_bullet[-1])
             p2_bullet[-1].direction=players[1].facing
             p2_bullet[-1].shoot()

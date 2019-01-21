@@ -62,5 +62,5 @@ while events.running:
     draw_debug_text()
     all_sprites.draw(screen)
     pygame.display.flip()
-pygame.quit() 
+pygame.quit()
 sys.exit()
