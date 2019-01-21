@@ -20,6 +20,10 @@ def load_sound(name):
     sound=pygame.mixer.Sound(sound_path)
     return sound
 
+# timer
+
+clock=pygame.time.Clock()
+
 # sprite groups
 
 all_sprites=pygame.sprite.Group()
@@ -39,6 +43,7 @@ class Player(pygame.sprite.Sprite):
         self.friction=-0.25
         self.facing=0     # where the player is looking (0-north, 1-east, 2-south, 3-west)
         self.colliding=False
+
     def moveup(self):
         if self.facing!=0:
             self.image=pygame.transform.rotate(self.image, (self.facing*90))
@@ -100,12 +105,13 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.center=(x, y)
         self.speed=vec(0, 0)
         self.direction=direction
+        self.clock=pygame.time.Clock()
     
     def shoot(self):
         if self.direction==0:
             self.speed.y=-BULLET_SPEED
         elif self.direction==1:
-           self.speed.x=BULLET_SPEED
+            self.speed.x=BULLET_SPEED
         elif self.direction==2:
             self.speed.y=BULLET_SPEED
         elif self.direction==3:

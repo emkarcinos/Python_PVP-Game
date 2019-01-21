@@ -15,6 +15,12 @@ p2_bullet=[]
 p1_bullet_group=pygame.sprite.Group()
 p2_bullet_group=pygame.sprite.Group()
 
+clock=pygame.time.Clock()
+clock.tick()
+timer1=1000
+clock2=pygame.time.Clock()
+clock2.tick()
+timer2=1000
 def events():
     global running
     for event in pygame.event.get():
@@ -42,6 +48,7 @@ def collision_check(p):
 
     else:
         return False
+
 def bullethits():
     hits1=pygame.sprite.groupcollide(p2_group, p1_bullet_group, True, True)
     hits2=pygame.sprite.groupcollide(p1_group, p2_bullet_group, True, True)
@@ -52,11 +59,16 @@ def bullethits():
 
 def player1_input(keys):
     if keys[P1_SHOOT]:
-            p1_bullet.append(Bullet('bullet', players[0].pos.x, players[0].pos.y, players[0].facing))
+        global timer1
+        p1_bullet.append(Bullet('bullet', players[0].pos.x, players[0].pos.y, players[0].facing))
+        if timer1>SHOOT_SPEED:
             p1_bullet_group.add(p1_bullet[-1])
             all_sprites.add(p1_bullet[-1])
             p1_bullet[-1].direction=players[0].facing
             p1_bullet[-1].shoot()
+            timer1=clock.tick()
+        else:
+            del p1_bullet[-1]
     if not (keys[P1_UP] or keys[P1_DOWN] or keys[P1_RIGHT] or keys[P1_LEFT]):
         players[0].stopmoving()
     elif not collision_check(0):
@@ -71,11 +83,16 @@ def player1_input(keys):
 
 def player2_input(keys):
     if keys[P2_SHOOT]:
-            p2_bullet.append(Bullet('bullet', players[1].pos.x, players[1].pos.y, players[1].facing))
+        global timer2
+        p2_bullet.append(Bullet('bullet', players[1].pos.x, players[1].pos.y, players[1].facing))
+        if timer2>SHOOT_SPEED:
             p2_bullet_group.add(p2_bullet[-1])
             all_sprites.add(p2_bullet[-1])
             p2_bullet[-1].direction=players[1].facing
             p2_bullet[-1].shoot()
+            timer2=clock.tick()
+        else:
+            del p2_bullet[-1]
     if not (keys[P2_UP] or keys[P2_DOWN] or keys[P2_RIGHT] or keys[P2_LEFT]):
         players[1].stopmoving()
     elif not collision_check(1):
@@ -89,10 +106,14 @@ def player2_input(keys):
             players[1].movedown() 
 
 def event_handler():
+    global timer1
+    global timer2
     events()
     keys=pygame.key.get_pressed()
     collision_check(-1)
     bullethits()
+    timer1+=clock.tick()
+    timer2+=clock2.tick()
     player1_input(keys)
     player2_input(keys) 
     
