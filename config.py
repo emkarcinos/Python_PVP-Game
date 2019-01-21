@@ -24,3 +24,6 @@ P2_RIGHT=pygame.K_RIGHT
 P2_LEFT=pygame.K_LEFT
 P2_SHOOT=pygame.K_RCTRL
 
+# bullets
+BULLET_SPEED=20
+SHOOT_SPEED=10

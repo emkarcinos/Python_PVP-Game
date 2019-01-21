@@ -1,6 +1,6 @@
 # import all files
 from config import *
-import events
+#import events
 # import modules
 import os, sys
 import pygame
@@ -66,9 +66,6 @@ class Player(pygame.sprite.Sprite):
         self.facing=3
         self.acc.x=-1.5
         self.acc.y=0
-    
-    def shoot(self):
-        nothing
 
     def stopmoving(self):
         self.acc=vec(0, 0)
@@ -97,7 +94,29 @@ class Player(pygame.sprite.Sprite):
         self.move()     
 
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, fname):
+    def __init__(self, fname, x, y, direction):
         pygame.sprite.Sprite.__init__(self)
         self.image, self.rect=load_img(fname + '.png')
+        self.rect.center=(x, y)
+        self.speed=vec(0, 0)
+        self.direction=direction
+    
+    def shoot(self):
+        if self.direction==0:
+            self.speed.y=-BULLET_SPEED
+        elif self.direction==1:
+           self.speed.x=BULLET_SPEED
+        elif self.direction==2:
+            self.speed.y=BULLET_SPEED
+        elif self.direction==3:
+            self.speed.x=-BULLET_SPEED
+        self.rect.center+=self.speed
 
+    def update(self):
+        self.shoot()
+
+class Hitbox(pygame.sprite.Sprite):
+    def __init__(self, x, y, w, h):
+        self.size=vec(w, h)
+        self.rect=self.size.get_rect()
+        self.rect.center=vec(x,y)

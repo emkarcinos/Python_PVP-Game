@@ -20,8 +20,8 @@ clock=pygame.time.Clock()
 
 # initialize two players
 
-events.players.append(Player('asd', 400, 100, 5))
-events.players.append(Player('qwe', 400, 500, 5))
+events.players.append(Player('asd', 400, 100, 10))
+events.players.append(Player('qwe', 400, 500, 10))
 all_sprites.add(events.players)
 
 events.running=True
@@ -34,13 +34,16 @@ def draw_debug_text():
     text_sprites=pygame.sprite.Group()
     texts=[
             font.render("P1 facing: " + str(events.players[0].facing), True, (100,100,100)),
-            font.render("P2 facing: " + str(events.players[1].facing), True, (100,100,100))
+            font.render("P2 facing: " + str(events.players[1].facing), True, (100,100,100)),
+            font.render("P1 bullets: " + str(len(events.p1_bullet)), True, (100,100,100)),
+            font.render("P2 bullets: " + str(len(events.p2_bullet)), True, (100,100,100))
         ]
     count=0
     for text in texts:
         screen.blit(text, (0,count*12))
         count+=1
 
+# set hitbox objects as screen boundaries ### DEBUG ###
 # game loop
 
 while events.running:
