@@ -20,8 +20,8 @@ clock=pygame.time.Clock()
 
 # initialize two players
 
-events.players.append(Player('asd', 50, 50, 5))
-events.players.append(Player('qwe', 100, 100, 5))
+events.players.append(Player('asd', 400, 100, 5))
+events.players.append(Player('qwe', 400, 500, 5))
 all_sprites.add(events.players)
 
 events.running=True

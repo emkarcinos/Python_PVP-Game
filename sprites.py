@@ -41,21 +41,29 @@ class Player(pygame.sprite.Sprite):
         self.colliding=False
 
     def moveup(self):
+        if self.facing!=0:
+            self.image=pygame.transform.rotate(self.image, (self.facing*90))
         self.facing=0
         self.acc.y=-1.5
         self.acc.x=0
 
     def movedown(self):
+        if self.facing!=2:
+            self.image=pygame.transform.rotate(self.image, (self.facing*90))
         self.facing=2
         self.acc.y=1.5
         self.acc.x=0
 
     def moveright(self):
+        if self.facing!=1:
+            self.image=pygame.transform.rotate(self.image, (self.facing*90))
         self.facing=1
         self.acc.x=1.5
         self.acc.y=0
 
     def moveleft(self):
+        if self.facing!=3:
+            self.image=pygame.transform.rotate(self.image, (self.facing*90))
         self.facing=3
         self.acc.x=-1.5
         self.acc.y=0
