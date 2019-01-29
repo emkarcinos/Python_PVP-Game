@@ -48,6 +48,7 @@ def draw_debug_text():
 boundary=pygame.sprite.Group()
 boundary.add=Hitbox(int(WINDOW_WIDTH/2), 0, WINDOW_WIDTH, 10)
 
+bg, bg_rect=load_img("bg.png")
 # game loop
 
 while events.running:
@@ -59,6 +60,7 @@ while events.running:
     all_sprites.update()
     screen.fill(BLACK)
     # draw
+    screen.blit(bg,(0,0))
     draw_debug_text()
     all_sprites.draw(screen)
     pygame.display.flip()
