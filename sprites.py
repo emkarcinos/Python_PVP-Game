@@ -20,10 +20,6 @@ def load_sound(name):
     sound=pygame.mixer.Sound(sound_path)
     return sound
 
-# timer
-
-clock=pygame.time.Clock()
-
 # sprite groups
 
 all_sprites=pygame.sprite.Group()
@@ -105,7 +101,6 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.center=(x, y)
         self.speed=vec(0, 0)
         self.direction=direction
-        self.clock=pygame.time.Clock()
     
     def shoot(self):
         if self.direction==0:
@@ -122,10 +117,3 @@ class Bullet(pygame.sprite.Sprite):
         self.shoot()
         if self.rect.bottom<0 or self.rect.right<0 or self.rect.left>WINDOW_WIDTH or self.rect.top>WINDOW_HEIGHT:
             self.kill()
-
-class Hitbox(pygame.sprite.Sprite):
-    def __init__(self, x, y, w, h):
-        self.size=pygame.Surface((x,y))
-        self.rect=self.size.get_rect()
-        self.rect.center=vec(x,y)
-        print(self.rect.center)

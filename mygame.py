@@ -44,10 +44,6 @@ def draw_debug_text():
         screen.blit(text, (0,count*12))
         count+=1
 
-# set hitbox objects as screen boundaries ### DEBUG ###
-boundary=pygame.sprite.Group()
-boundary.add=Hitbox(int(WINDOW_WIDTH/2), 0, WINDOW_WIDTH, 10)
-
 bg, bg_rect=load_img("bg.png")
 # game loop
 
