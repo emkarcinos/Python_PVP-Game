@@ -2,13 +2,13 @@
 from config import *
 from sprites import *
 from colours import *
+import maps 
 import events
 # import modules
+from os import path
 import os, sys
 import pygame
 from pygame.locals import *
-
-# JEChANE
 
 # initialization
 
@@ -20,8 +20,8 @@ clock=pygame.time.Clock()
 
 # initialize two players
 
-events.players.append(Player('asd', 400, 100, 10))
-events.players.append(Player('qwe', 400, 500, 10))
+events.players.append(Player('p1', 400, 100, 10))
+events.players.append(Player('p2', 430, 300, 10))
 events.p1_group.add(events.players[0])
 events.p2_group.add(events.players[1])
 all_sprites.add(events.players)

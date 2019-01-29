@@ -1,5 +1,6 @@
 # import all files
 from config import *
+import maps
 #import events
 # import modules
 import os, sys
@@ -39,6 +40,7 @@ class Player(pygame.sprite.Sprite):
         self.friction=-0.25
         self.facing=0     # where the player is looking (0-north, 1-east, 2-south, 3-west)
         self.colliding=False
+        self.lastpos=self.rect.center
 
     def moveup(self):
         if self.facing!=0:
@@ -71,28 +73,28 @@ class Player(pygame.sprite.Sprite):
     def stopmoving(self):
         self.acc=vec(0, 0)
 
+    def wallcollide(self):
+        for wall in maps.walls:
+            if self.rect.colliderect(wall.rect):
+                return True
+        return False
+        
     def move(self):
-        if self.colliding:
-            if self.facing==0:
-                self.pos.y+=1
-            elif self.facing==1:
-                self.pos.x-=1
-            elif self.facing==2:
-                self.pos.y-=1
-            elif self.facing==3:
-                self.pos.x+=1   
-            self.rect.center=self.pos
+        if self.colliding or self.wallcollide():
+            self.rect.center=self.lastpos
+            self.pos=self.lastpos
             self.speed=vec(0, 0)
             self.acc=vec(0, 0)
             self.colliding=False
         else:
+            self.lastpos=self.rect.center
             self.acc+=self.speed*self.friction
             self.speed+=self.acc
             self.pos+=self.speed+0.5*self.acc
             self.rect.center=self.pos
 
     def update(self):
-        self.move()     
+        self.move()
 
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, fname, x, y, direction):
