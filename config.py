@@ -8,6 +8,7 @@ WINDOW_HEIGHT = 720
 FPS = 30
 WIN_NAME = "Kostschevsky's shooter"
 
+PLAYER_HP=100
 # Controls
 
 # player 1
@@ -27,3 +28,4 @@ P2_SHOOT=pygame.K_RCTRL
 # bullets
 BULLET_SPEED=20
 SHOOT_SPEED=200
+BULLET_DMG=20

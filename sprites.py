@@ -33,14 +33,17 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, fname, s_pos_x, s_pos_y, speed):
         pygame.sprite.Sprite.__init__(self)
         self.image, self.rect=load_img(fname +'.png')
-        self.rect.center=(s_pos_x, s_pos_y)
+        self.rect.center=vec(s_pos_x, s_pos_y)
         self.pos=vec(s_pos_x, s_pos_y)
         self.speed=vec(0, 0)
         self.acc=vec(0, 0)
         self.friction=-0.25
         self.facing=0     # where the player is looking (0-north, 1-east, 2-south, 3-west)
         self.colliding=False
-        self.lastpos=self.rect.center
+        self.lastpos=(0,0)
+        self.hp=PLAYER_HP
+        self.alive=True
+        self.hp_visible=False
 
     def moveup(self):
         if self.facing!=0:
@@ -78,11 +81,26 @@ class Player(pygame.sprite.Sprite):
             if self.rect.colliderect(wall.rect):
                 return True
         return False
+
+    def draw_healthbar(self):
+        width=int(self.rect.width*self.hp/100)
+        self.hp_bar=pygame.Rect(0, 0, width, 7)
+        if self.hp_visible:
+            pygame.draw.rect(pygame.display.get_surface(), (255,0,0), self.hp_bar)
+
+    def gothit(self):
+        self.hp_visible=True
+        if self.hp>0:
+            self.hp-=BULLET_DMG
+        else:
+            self.alive=False
+        print(self.hp)
+        
         
     def move(self):
         if self.colliding or self.wallcollide():
             self.rect.center=self.lastpos
-            self.pos=self.lastpos
+            self.pos=vec(self.lastpos[0], self.lastpos[1])  ## tuple to vector
             self.speed=vec(0, 0)
             self.acc=vec(0, 0)
             self.colliding=False
@@ -94,13 +112,16 @@ class Player(pygame.sprite.Sprite):
             self.rect.center=self.pos
 
     def update(self):
+        #if self.alive==False:
+            #print("rip")
         self.move()
+        #self.draw_healthbar()
 
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, fname, x, y, direction):
         pygame.sprite.Sprite.__init__(self)
         self.image, self.rect=load_img(fname + '.png')
-        self.rect.center=(x, y)
+        self.rect.center=vec(x, y)
         self.speed=vec(0, 0)
         self.direction=direction
     
@@ -117,5 +138,5 @@ class Bullet(pygame.sprite.Sprite):
 
     def update(self):
         self.shoot()
-        if self.rect.bottom<0 or self.rect.right<0 or self.rect.left>WINDOW_WIDTH or self.rect.top>WINDOW_HEIGHT:
+        if not pygame.sprite.spritecollideany(self, maps.bwalls, collided = None)==None:
             self.kill()

@@ -13,7 +13,7 @@ from pygame.locals import *
 # initialization
 
 pygame.init()
-pygame.mixer.init()
+#pygame.mixer.init()
 screen=pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption(WIN_NAME)
 clock=pygame.time.Clock()
@@ -45,6 +45,7 @@ def draw_debug_text():
         count+=1
 
 bg, bg_rect=load_img("bg.png")
+
 # game loop
 
 while events.running:
