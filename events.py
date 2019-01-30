@@ -4,6 +4,8 @@ from pygame.locals import *
 
 from sprites import *
 from config import *
+
+mainloop=True
 running=True
 players=[]
 
@@ -21,6 +23,7 @@ timer1=1000
 clock2=pygame.time.Clock()
 clock2.tick()
 timer2=1000
+
 def events():
     global running
     for event in pygame.event.get():
@@ -51,7 +54,7 @@ def collision_check(p):
 
 def bullethits():
     hits1=pygame.sprite.groupcollide(p2_group, p1_bullet_group, False, True)
-    hits2=pygame.sprite.groupcollide(p1_group, p2_bullet_group, True, True)
+    hits2=pygame.sprite.groupcollide(p1_group, p2_bullet_group, False, True)
     if hits1:
         players[1].gothit()
     if hits2:
@@ -104,6 +107,11 @@ def player2_input(keys):
             players[1].moveup()
         if keys[P2_DOWN]:
             players[1].movedown() 
+def dead():
+    if players[0].alive and players[1].alive:
+        return False
+    else:
+        return True
 
 def event_handler():
     global timer1

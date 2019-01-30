@@ -6,8 +6,9 @@ import maps
 import os, sys
 import pygame
 from pygame.locals import *
-
 # resource handler
+
+screen=pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 
 def load_img(name):
     img_path=os.path.join('data/graphics', name)
@@ -82,20 +83,12 @@ class Player(pygame.sprite.Sprite):
                 return True
         return False
 
-    def draw_healthbar(self):
-        width=int(self.rect.width*self.hp/100)
-        self.hp_bar=pygame.Rect(0, 0, width, 7)
-        if self.hp_visible:
-            pygame.draw.rect(pygame.display.get_surface(), (255,0,0), self.hp_bar)
-
     def gothit(self):
         self.hp_visible=True
         if self.hp>0:
             self.hp-=BULLET_DMG
-        else:
+        if self.hp<=0:
             self.alive=False
-        print(self.hp)
-        
         
     def move(self):
         if self.colliding or self.wallcollide():
@@ -112,16 +105,13 @@ class Player(pygame.sprite.Sprite):
             self.rect.center=self.pos
 
     def update(self):
-        #if self.alive==False:
-            #print("rip")
         self.move()
-        #self.draw_healthbar()
-
+  
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, fname, x, y, direction):
         pygame.sprite.Sprite.__init__(self)
         self.image, self.rect=load_img(fname + '.png')
-        self.rect.center=vec(x, y)
+        self.rect.center=(x, y)
         self.speed=vec(0, 0)
         self.direction=direction
     

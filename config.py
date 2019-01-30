@@ -9,6 +9,7 @@ FPS = 30
 WIN_NAME = "Kostschevsky's shooter"
 
 PLAYER_HP=100
+
 # Controls
 
 # player 1
@@ -16,7 +17,7 @@ P1_UP=pygame.K_w
 P1_DOWN=pygame.K_s
 P1_RIGHT=pygame.K_d
 P1_LEFT=pygame.K_a
-P1_SHOOT=pygame.K_z
+P1_SHOOT=pygame.K_LCTRL
 
 # player 2
 P2_UP=pygame.K_UP
