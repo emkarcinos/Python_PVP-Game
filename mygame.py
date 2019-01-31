@@ -1,6 +1,6 @@
 # import all files
 from config import *
-from sprites import Player, all_sprites, load_img, screen
+from sprites import Player, all_sprites, load_img, screen, HPBar, load_img_noalpha
 from colours import *
 import maps 
 import events
@@ -25,7 +25,7 @@ events.p1_group.add(events.players[0])
 events.p2_group.add(events.players[1])
 all_sprites.add(events.players)
 events.running=True
-
+all_sprites.add(events.bars)
 # debug text
 
 font=pygame.font.SysFont("Arial", 12)
@@ -40,14 +40,25 @@ def draw_debug_text():
         screen.blit(text, (0,count*12))
         count+=1
 
-bg, bg_rect=load_img("bg.png")
+bg, bg_rect=load_img_noalpha("bg.png")
+splash, splash_rect=load_img_noalpha("splash.png")
+
+def waitforkey():
+    waiting=True
+    while waiting:
+        clock.tick(FPS)    
+        keys=pygame.key.get_pressed()
+        if keys[pygame.K_SPACE]:
+            waiting=False
 
 def startscreen():
-    screen.fill(BGCOLOR)
-
+    screen.blit(splash,(0,0)) 
+    pygame.display.flip()
+    waitforkey()
+        
 # game loop
 while events.mainloop:
-    print('asd')
+    #startscreen()
     while events.running:
         clock.tick(FPS)
         # events
@@ -60,7 +71,7 @@ while events.mainloop:
             break
         # draw
         screen.blit(bg,(0,0))
-        draw_debug_text()
+        #draw_debug_text()
         all_sprites.draw(screen)
         pygame.display.flip()
     print('asd')

@@ -4,7 +4,7 @@ from pygame.locals import *
 
 # Runtime settings
 WINDOW_WIDTH = 720
-WINDOW_HEIGHT = 720
+WINDOW_HEIGHT = 1000
 FPS = 30
 WIN_NAME = "Kostschevsky's shooter"
 

@@ -17,6 +17,12 @@ def load_img(name):
     image.set_colorkey(colorkey, RLEACCEL)
     return image, image.get_rect()
 
+def load_img_noalpha(name):
+    img_path=os.path.join('data/graphics', name)
+    image=pygame.image.load(img_path).convert()
+    colorkey=image.get_at((0,0))
+    return image, image.get_rect()
+
 def load_sound(name):
     sound_path=os.path.join('data/sounds')
     sound=pygame.mixer.Sound(sound_path)
@@ -25,7 +31,6 @@ def load_sound(name):
 # sprite groups
 
 all_sprites=pygame.sprite.Group()
-
 # sprites classes
 
 vec=pygame.math.Vector2
@@ -130,3 +135,19 @@ class Bullet(pygame.sprite.Sprite):
         self.shoot()
         if not pygame.sprite.spritecollideany(self, maps.bwalls, collided = None)==None:
             self.kill()
+
+class HPBar(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        self.image=pygame.Surface((150, 30))
+        self.image.fill((87,156,135))
+        self.rect=self.image.get_rect()
+        self.rect.center=((x, y))
+        self.width=150
+
+    def gothit(self):
+        self.width-=int(150*(BULLET_DMG/100))
+        self.image=pygame.transform.scale(self.image, (self.width, 30))
+
+    def update(self):
+        self.gothit

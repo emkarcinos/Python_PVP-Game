@@ -24,6 +24,11 @@ clock2=pygame.time.Clock()
 clock2.tick()
 timer2=1000
 
+bars=[]
+
+bars.append(HPBar(200,886))
+bars.append(HPBar(570,886))
+
 def events():
     global running
     for event in pygame.event.get():
@@ -57,8 +62,10 @@ def bullethits():
     hits2=pygame.sprite.groupcollide(p1_group, p2_bullet_group, False, True)
     if hits1:
         players[1].gothit()
+        bars[1].gothit()
     if hits2:
         players[0].gothit()
+        bars[0].gothit()
 
 def player1_input(keys):
     if keys[P1_SHOOT]:
