@@ -157,3 +157,6 @@ class HPBar(pygame.sprite.Sprite):
 
     def update(self):
         self.gothit
+        
+    def delete(self):
+        self.kill()

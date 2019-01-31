@@ -60,6 +60,8 @@ def clear_round():
     events.p1_group.remove()
     events.p2_group.remove()
     events.players.clear()
+    for i in events.bars:
+        i.delete()
     events.bars.clear()
     events.p1_bullet.clear()
     events.p2_bullet.clear()
