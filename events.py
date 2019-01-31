@@ -26,14 +26,13 @@ timer2=1000
 
 bars=[]
 
-bars.append(HPBar(200,886))
-bars.append(HPBar(570,886))
-
 def events():
     global running
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running=False
+            pygame.quit()
+            sys.exit()
+            #running=False
 
 def collision_check(p):
     # collision between players
