@@ -1,7 +1,7 @@
 # import all files
 from config import *
 import maps
-#import events
+# import events
 # import modules
 import os, sys
 import pygame
