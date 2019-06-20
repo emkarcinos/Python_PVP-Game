@@ -11,14 +11,14 @@ from pygame.locals import *
 screen=pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 
 def load_img(name):
-    img_path=os.path.join('data\graphics', name)
+    img_path=os.path.join('data', 'graphics', name)
     image=pygame.image.load(img_path).convert()
     colorkey=image.get_at((0,0))
     image.set_colorkey(colorkey, RLEACCEL)
     return image, image.get_rect()
 
 def load_img_noalpha(name):
-    img_path=os.path.join('data\graphics', name)
+    img_path=os.path.join('data', 'graphics', name)
     image=pygame.image.load(img_path).convert()
     return image
 
